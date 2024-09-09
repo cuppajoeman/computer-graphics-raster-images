@@ -13,8 +13,20 @@ bool write_ppm(
   assert(
     (num_channels == 3 || num_channels ==1 ) &&
     ".ppm only supports RGB or grayscale images");
-  ////////////////////////////////////////////////////////////////////////////
-  // Replace with your code here:
+
+  std::ofstream ppm_file(filename, std::ios::binary);
+
+  if (!ppm_file) {
+    return true;
+  }
+
+  ppm_file << "P6\n";
+  ppm_file << width << " " << height << "\n";
+  ppm_file << "255\n";
+
+  const char* type_converted_data = reinterpret_cast<const char*>(data.data());
+  ppm_file.write(type_converted_data, data.size());
+
+
   return false;
-  ////////////////////////////////////////////////////////////////////////////
 }
