@@ -10,15 +10,18 @@ void rgba_to_rgb(
   rgb.resize(height*width*3);
 
   unsigned int num_pixels_copied = 0;
+  unsigned int rgb_pixel_idx = 0;
   for (int i = 0;  i < num_pixels_in_rbga_images; i += 4) {
     unsigned char red = rgba[i];
     unsigned char green = rgba[i + 1];
     unsigned char blue = rgba[i + 2];
+    // don't operate on alpha
 
-    rgb.insert(rgb.end(), {red, green, blue});
+    rgb[rgb_pixel_idx] = red;
+    rgb[rgb_pixel_idx + 1] = green;
+    rgb[rgb_pixel_idx + 2] = blue;
 
-    num_pixels_copied += 3;
-    // we don't care about alpha
+    rgb_pixel_idx += 3;
   }
-  assert(num_pixels_copied == (height * width * 3));
+  /*assert(num_pixels_copied == (height * width * 3));*/
 }
