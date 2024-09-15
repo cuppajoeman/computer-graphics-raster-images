@@ -335,6 +335,9 @@ Compute C = A Over B, where A and B are semi-transparent rgba images and
 ../data/{dog,glasses,laser-beams,sparkles}.png` should produce this image in
 `composite.ppm`.](images/composite.png) 
 
+### *\*New\** Validation
+Starting Fall 2024, we now provide reference PPM files in `data/validation`. You can use these to validate your implementation by comparing the RGB values of your output PPM files against the reference PPM files. Note that while the structure of your PPM files does not need to match the reference files exactly, the RGB values should be identical.
+
 ### Submission
 
 Submit your completed homework on MarkUs. Open the [MarkUs](https://markus.teach.cs.toronto.edu/2022-01) course 

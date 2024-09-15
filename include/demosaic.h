@@ -2,7 +2,7 @@
 #define DEMOSAIC_H
 #include <vector>
 
-// Given a mosaiced image (interleaved BGGR colors in a single channel), created
+// Given a mosaiced image (interleaved GBRG colors in a single channel), created
 // a 3-channel rgb image.
 //
 // Inputs:
