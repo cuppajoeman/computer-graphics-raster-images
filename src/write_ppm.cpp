@@ -21,23 +21,24 @@ bool write_ppm(
     return false;
   }
 
-  // P2 for grayscale (num_channels == 1), P3 for RGB (num_channels == 3)
+  // p2 for grayscale (num_channels == 1), p3 for rgb (num_channels == 3)
   if (num_channels == 1) {
-    ppm_file << "P2\n";  // Grayscale ASCII format
+    ppm_file << "P2\n";  // grayscale ascii format
   } else if (num_channels == 3) {
     ppm_file << "P3\n";  // RGB ASCII format
   }
 
-  // Write image dimensions and maximum color value
-  ppm_file << width << " " << height << "\n255\n";
+  // write image dimensions and maximum color value
+  ppm_file << width << " " << height << "\n255";
 
-  // Loop through the data and write each pixel as an ASCII string
   for (int i = 0; i < height * width * num_channels; i += num_channels) {
+    if (i % width == 0) {
+      ppm_file << "\n";
+    }
     for (int j = 0; j < num_channels; ++j) {
-      // Convert each `unsigned char` to an integer and output it as a string
+      // convert each `unsigned char` to an integer and output it as a string
       ppm_file << static_cast<int>(data[i + j]) << " ";
     }
-    ppm_file << "\n";
   }
 
   ppm_file.close();

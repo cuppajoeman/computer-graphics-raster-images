@@ -7,9 +7,13 @@ void rgb_to_gray(
   std::vector<unsigned char> & gray)
 {
   gray.resize(height*width);
-  ////////////////////////////////////////////////////////////////////////////
-  // Add your code here
-  ////////////////////////////////////////////////////////////////////////////
+
+  unsigned int rgb_pixel_idx = 0;
+  for (int i = 0;  i < rgb.size(); i += 3) {
+    unsigned char red = rgb[i];
+    unsigned char green = rgb[i + 1];
+    unsigned char blue = rgb[i + 2];
+    // don't operate on alpha
+    gray[i / 3] = 0.2126 * red + 0.7152 * green + 0.0722 * blue;
+  }
 }
-
-
