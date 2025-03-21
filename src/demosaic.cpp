@@ -1,6 +1,30 @@
 #include "demosaic.h"
-#include "helpers.h"
+/*#include "helpers.h"*/
 #include <tuple>
+
+namespace Demosaic {
+std::pair<int, int> divmod(int numerator, int denominator) {
+    int quotient = numerator / denominator;
+    int remainder = numerator % denominator;
+    return std::make_pair(quotient, remainder);
+}
+int get_bayer_mosaic_channel(int row, int col) {
+    int r = 0, g = 1, b = 2;
+    if (row % 2 == 0) {
+        if (col % 2 == 0) {
+            return g;
+        } else {
+            return b;
+        }
+    } else {
+        if (col % 2 == 0) {
+            return r;
+        } else {
+            return g;
+        }
+    }
+}
+}
 
 std::tuple<unsigned char, unsigned char, unsigned char> average_of_neighbors(
     const std::vector<unsigned char>& bayer,
@@ -30,7 +54,7 @@ std::tuple<unsigned char, unsigned char, unsigned char> average_of_neighbors(
         if (neighbor_row >= 0 && neighbor_row < height && neighbor_col >= 0 && neighbor_col < width) {
             int index = neighbor_row * width + neighbor_col;
             int bayer_value = bayer[index];
-            int channel = get_bayer_mosaic_channel(neighbor_row, neighbor_col);
+            int channel = Demosaic::get_bayer_mosaic_channel(neighbor_row, neighbor_col);
             switch (channel) {
                 case 0: // red
                     r_sum += bayer_value;
@@ -65,7 +89,7 @@ void demosaic(
   rgb.resize(width*height*3);
   
   for (int i = 0; i < width * height; i++) {
-    auto qr = divmod(i, width);
+    auto qr = Demosaic::divmod(i, width);
     int row = qr.first;
     int col = qr.second;
 

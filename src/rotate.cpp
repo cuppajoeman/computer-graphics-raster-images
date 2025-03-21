@@ -1,5 +1,13 @@
 #include "rotate.h"
-#include "helpers.h"
+/*#include "helpers.h"*/
+
+namespace Rotate {
+std::pair<int, int> divmod(int numerator, int denominator) {
+    int quotient = numerator / denominator;
+    int remainder = numerator % denominator;
+    return std::make_pair(quotient, remainder);
+}
+}
 
 void rotate(
   const std::vector<unsigned char> & input,
@@ -32,11 +40,11 @@ void rotate(
   ////////////////////////////////////////////////////////////////////////////
 
   for (int i = 0; i < input.size(); i += num_channels) {
-    auto qr = divmod(i / num_channels, width); // divide by num_channels to get pixel index
+    auto qr = Rotate::divmod(i / num_channels, width); // divide by num_channels to get pixel index
     int row = qr.first;
     int col = qr.second;
 
-    int new_row = width - 1 - col;
+    int new_row = width - 1 - col;  
     int new_col = row;
 
     int rotated_index = (new_row * height + new_col) * num_channels;

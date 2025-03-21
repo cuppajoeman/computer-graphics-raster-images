@@ -1,6 +1,13 @@
 #include "reflect.h"
-#include "helpers.h"
+/*#include "helpers.h"*/
 
+namespace Reflect {
+std::pair<int, int> divmod(int numerator, int denominator) {
+    int quotient = numerator / denominator;
+    int remainder = numerator % denominator;
+    return std::make_pair(quotient, remainder);
+}
+}
 
 void reflect(
   const std::vector<unsigned char> & input,
@@ -12,7 +19,7 @@ void reflect(
   reflected.resize(width*height*num_channels);
 
   for (int i = 0; i < input.size(); i += num_channels) {
-    auto qr = divmod(i / num_channels, width);
+    auto qr = Reflect::divmod(i / num_channels, width);
     int row = qr.first; int col = qr.second;
 
     int reflected_col = width - 1 - col;
